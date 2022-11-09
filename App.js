@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import type {Node} from 'react';
+// ここで基本的なUIの部品をimportしているのかな。
 import {
   SafeAreaView,
   ScrollView,
@@ -28,7 +28,9 @@ import {
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
+// Sectionにはtitleとchildrenが入っている。
+// テキストのスタイルを指定する部分は最初の"Text"の中に入れるらしい。
+const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -54,7 +56,7 @@ const Section = ({children, title}): Node => {
   );
 };
 
-const App: () => Node = () => {
+const App = () {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -73,6 +75,7 @@ const App: () => Node = () => {
         <Header />
         <View
           style={{
+
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Section title="変えてみるよ">
@@ -95,15 +98,22 @@ const App: () => Node = () => {
   );
 };
 
+// 部品毎のスタイルを定義
 const styles = StyleSheet.create({
+
+  // ひとつのブロックあたりの縦と横の幅。カラム的なイメージ。
   sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+    marginTop: 32, // 間隔
+    paddingHorizontal: 24, // 横のpadding
   },
+
+  // ここでタイトル文字サイズを規定
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
   },
+
+  // 説明文のスタイル。marginTopでタイトルとの間のスペーシングを定義している。
   sectionDescription: {
     marginTop: 8,
     fontSize: 18,
@@ -114,4 +124,5 @@ const styles = StyleSheet.create({
   },
 });
 
+// export defaultでconst Appを呼び出している。
 export default App;
