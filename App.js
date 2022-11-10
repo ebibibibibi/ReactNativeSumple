@@ -26,10 +26,17 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import {NavigationContainer} from '@react-navigation/native';
+
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+
+import HomeScreen from './screens/HomeScreen';
+import UserScreen from './screens/UserScreen';
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
 // Sectionにはtitleとchildrenが入っている。
 // テキストのスタイルを指定する部分は最初の"Text"の中に入れるらしい。
+
 const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
@@ -56,51 +63,26 @@ const Section = ({children, title}) => {
   );
 };
 
-const App = () {
+const Stack = createNativeStackNavigator();
+
+const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="変えてみるよ">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="User" component={UserScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
 // 部品毎のスタイルを定義
 const styles = StyleSheet.create({
-
   // ひとつのブロックあたりの縦と横の幅。カラム的なイメージ。
   sectionContainer: {
     marginTop: 32, // 間隔
